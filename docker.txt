@@ -1,0 +1,72 @@
+# Or curl install docker
+curl -sSL https://get.docker.com/ | sh
+# Or wget install docker
+wget -qO- https://get.docker.com/ | sh
+
+# add yourself or admin to docker group
+sudo groupadd docker
+sudo usermod -aG docker $USER
+
+# check docker running
+docker run hello-world
+
+# fix the proxy
+sudo mkdir /etc/systemd/system/docker.service.d
+sudo vim http-proxy.conf
+## Inside the http-proxy.conf
+[Service]
+Environment="HTTP_PROXY=[INSERT PROXY HERE]"
+Environment="HTTPS_PROXY=[INSERT PROXY HERE]"
+
+
+# flush changes
+sudo systemctl daemon-reload
+# verify configuration has been loaded
+sudo systemctl show --property Environment docker
+# you should see the environment properties printed
+sudo systemctl restart docker
+
+#Rancher
+docker run -d --restart=unless-stopped -p 8080:8080 rancher/server
+
+#Spring-Boot
+docker run -d -p 8080:8080 --name spring-boot alee/spring-boot
+#login into spring boot container (uses alphine)
+docker exec -it spring-boot /bin/sh
+
+#docker-machine
+curl -L https://github.com/docker/machine/releases/download/v0.10.0/docker-machine-`uname -s`-`uname -m` > /tmp/docker-machine && chmod +x /tmp/docker-machine && sudo cp /tmp/docker-machine /usr/local/bin/docker-machine
+
+#ssl key
+#copy certs to
+/etc/pki/ca-trust/source/anchors
+
+docker-machine commands
+docker-machine create --driver virtualbox manager1
+docker-machine create --driver virtualbox worker1
+docker-machine create --driver virtualbox worker2
+
+docker-machine ssh manager1
+#IP is real IP of manager1
+docker swarm init --advertise-addr 192.168.99.100
+#get node info
+docker node ls
+#get join command
+docker swarm join-token worker
+
+docker swarm join \
+--token SWMTKN-1-2enfct8kszodrc7b69xap2im6jbk5d20sm2xdz1ak26izc0l30-2m4zamqidyuyrrdsb1rzy3ayw \
+192.168.99.100:2377
+
+scp myfile docker@<docker machine>:~
+#export docker image
+docker save -o myfile alee/spring-boot
+#import docker image
+docker-machine ssh worker1
+#password tcuser
+docker load -i myfile
+
+#LAUNCH SWARM
+docker service create --replicas 5 -p 8080:8080 --name spring-boot alee/spring-boot
+
+
