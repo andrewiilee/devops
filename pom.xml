@@ -27,5 +27,6 @@
         <module>acceptance-criteria</module>
         <module>spring-boot</module>
         <module>generics</module>
+        <module>scala-test</module>
     </modules>
 </project>
