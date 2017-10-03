@@ -9,20 +9,17 @@ import org.springframework.stereotype.Component;
  * @author alee2
  */
 @Component("Scroll")
-public class Scroll extends Generic<Book, Book>{
-    private final String edict = "edict";
-    private final String writer = "writer";
-
-    public String getWriter() {
-        return writer;
+public class Scroll extends Generic<Book>{
+    private String getWriter() {
+        return "writer";
     }
 
-    public String getEdict() {
-        return edict;
+    private String getEdict() {
+        return "edict";
     }
 
     @Override
-    public Book request(Book script) {
+    public Book request() {
         return new Book(getEdict(),getWriter());
     }
 }

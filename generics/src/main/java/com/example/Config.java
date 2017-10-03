@@ -16,9 +16,10 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan
 public class Config {
     @Resource(name = "Volume")
-    Generic<Book, Book> volume;
+    Generic<Book> volume;
 
+    //Another way to specify resources
     @Autowired
     @Qualifier("Scroll")
-    public Generic<Book, Book> scroll;
+    Generic<Book> scroll;
 }

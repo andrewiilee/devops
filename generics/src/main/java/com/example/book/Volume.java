@@ -9,17 +9,17 @@ import org.springframework.stereotype.Component;
  * @author alee2
  */
 @Component("Volume")
-public class Volume extends Generic<Book, Book>{
+public class Volume extends Generic<Book>{
     private String getBeholder() {
         return "beholder";
     }
 
-    public String getVolume() {
+    private String getVolume() {
         return "volume";
     }
 
     @Override
-    public Book request(Book script) {
+    public Book request() {
         return new Book(getVolume(),getBeholder());
     }
 }
