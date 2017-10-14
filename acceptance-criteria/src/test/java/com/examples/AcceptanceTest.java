@@ -9,5 +9,5 @@ import org.junit.runner.RunWith;
  * @author alee2
  */
 @RunWith(Cucumber.class)
-public class AddTest {
+public class AcceptanceTest {
 }
