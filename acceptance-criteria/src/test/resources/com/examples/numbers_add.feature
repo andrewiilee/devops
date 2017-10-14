@@ -17,10 +17,10 @@ Feature: Add numbers
     Then the result is 2
 
   Scenario: Result of adding 16 and 14
-    Given a number <num one> with another <num two>
+    Given a some number with some another number
       | 16 | 14 |
     When the calculator wants to add them together
-    Then the result is <result>
+    Then the result is added
       | 30 |
 
   Scenario Outline: Result of adding a data table

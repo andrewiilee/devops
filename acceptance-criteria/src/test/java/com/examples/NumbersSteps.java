@@ -33,15 +33,15 @@ public class NumbersSteps {
         assertThat(add.add(), equalTo(arg1));
     }
 
-    @Given("^a number <num one> with another <num two>$")
-    public void a_number_num_one_with_another_num_two(DataTable arg1) throws Throwable {
+    @Given("^a some number with some another number$")
+    public void a_some_number_with_some_another_number(DataTable arg1) throws Throwable {
         List<List<String>> data = arg1.raw();
         Add add = new Add(Integer.parseInt(data.get(0).get(0)), Integer.parseInt(data.get(0).get(1)));
         this.add = add;
     }
 
-    @Then("^the result is <result>$")
-    public void the_result_is_result(DataTable arg1) throws Throwable {
+    @Then("^the result is added$")
+    public void the_result_is_added(DataTable arg1) throws Throwable {
         List<List<String>> data = arg1.raw();
         assertThat(add.add(), equalTo(Integer.parseInt(data.get(0).get(0))));
     }
