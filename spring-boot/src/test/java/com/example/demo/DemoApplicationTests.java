@@ -28,4 +28,24 @@ public class DemoApplicationTests {
                 .andExpect(status().isOk())
                 .andExpect(content().string(equalTo("Working Rest Service via Spring-boot \n")));
     }
+
+    @Test
+    public void getProp() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/prop").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string(equalTo("example")));
+    }
+
+    @Test
+    public void getName() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/component").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string(equalTo("DemoComponent")));
+    }
+
+    @Test
+    public void getException() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/test").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
 }

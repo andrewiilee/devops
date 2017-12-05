@@ -3,16 +3,16 @@ DevOps repo
 
 The purpose of this repo is to demonstrate devops tools
 
-# Acceptance test prototype
----------------------------------
+#####acceptance-criteria
+Part of continuous integration & release automation
 - [ X ] create acceptance test
 - [ X ] pass acceptance test
+- [ X ] achieve behavior driven design
 
-# Docker prototype
----------------------------------
-The purpose of this repo is to demonstrate docker in a continuous integration, and continuous delivery env
+#####spring-boot
+Part of continuous integration & release automation
 
-## TODO
+#####TODO
 - [ X ] Create spring-boot rest service
 - [ X ] Create docker image
 - [ X ] Maven create docker image
@@ -22,3 +22,7 @@ The purpose of this repo is to demonstrate docker in a continuous integration, a
 - [ . ] Swarm downloads update
 - [ . ] Demo swarm loadbalancing
 - [ . ] Install rancher and monitor the swarm
+
+DevOps Topics
+--------------------------------
+ChatOps

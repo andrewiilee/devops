@@ -1,0 +1,5 @@
+id    ,priority,created            ,modified           ,path
+order1,10      ,2017-01-01 00:00:00,2017-01-01 00:00:00,src/test/resources/scan_me/order1
+order2,11      ,2017-02-02 00:00:00,2017-02-02 00:00:00,src/test/resources/scan_me/order2
+order3,3       ,2017-03-03 00:00:00,2017-03-03 00:00:00,src/test/resources/scan_me/order1
+order4,8       ,2017-04-04 00:00:00,2017-04-04 00:00:00,src/test/resources/scan_me/order2
