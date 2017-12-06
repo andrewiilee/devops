@@ -30,7 +30,7 @@ public class NumbersSteps {
 
     @Then("^the result is (\\d+)$")
     public void the_result_is(int arg1) throws Throwable {
-        assertThat(add.add(), equalTo(arg1));
+        assertThat(add.getNum3(), equalTo(arg1));
     }
 
     @Given("^a some number with some another number$")
@@ -43,6 +43,6 @@ public class NumbersSteps {
     @Then("^the result is added$")
     public void the_result_is_added(DataTable arg1) throws Throwable {
         List<List<String>> data = arg1.raw();
-        assertThat(add.add(), equalTo(Integer.parseInt(data.get(0).get(0))));
+        assertThat(add.getNum3(), equalTo(Integer.parseInt(data.get(0).get(0))));
     }
 }

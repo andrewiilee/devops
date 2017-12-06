@@ -1,4 +1,4 @@
-package com.example;
+package com.example.data;
 
 import com.example.enumeration.FileState;
 import com.example.enumeration.OrderState;
@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -36,32 +37,33 @@ import org.springframework.stereotype.Component;
 //TODO java doc
 @Component
 public final class OrderData {
+
     private static final Logger logger = LoggerFactory.getLogger(OrderData.class);
     private static final String datePattern = "yyyy-MM-dd HH:mm:ss";
-
+    private static final DateFormat df = new SimpleDateFormat(datePattern);
     private List<SFOrder> orders;
 
     @Autowired
     public OrderData(@Value("${csv.file.location}") String csvLocation) {
-        logger.info("CSV Location = {}", csvLocation);
-
-        try {
-            orders = populateOrder(csvLocation);
-        } catch (IOException e) {
-            logger.error("Cannot find or process csv file = {}. Check file location and data accuracy", csvLocation);
-        } catch (ParseException e) {
-            logger.error("Date value in the csv file does not match {}. Check date for accuracy", datePattern);
+        if(orders == null) {
+            logger.info("CSV Location = {}", csvLocation);
+            try {
+                orders = populateOrder(csvLocation);
+            } catch (IOException e) {
+                logger.error("Cannot find or process csv file = {}. Check file location and data accuracy", csvLocation);
+            } catch (ParseException e) {
+                logger.error("Date value in the csv file does not match {}. Check date for accuracy", datePattern);
+            }
         }
     }
 
-    synchronized List<SFOrder> getOrders() {
+    synchronized public List<SFOrder> getOrders() {
         return orders;
     }
 
     private List<SFOrder> populateOrder(String csvLocation) throws IOException, ParseException {
         List<Map<String, String>> csv = getListMapFromCSV(csvLocation);
         List<SFOrder> orderList = new CopyOnWriteArrayList<>();
-        DateFormat df = new SimpleDateFormat(datePattern);
 
         for (Map<String, String> map : csv) {
             logger.debug("Loading order id = {}", map.get("id"));
@@ -116,20 +118,25 @@ public final class OrderData {
 
     private List<Map<String, String>> getListMapFromCSV(final String filePath) throws IOException {
         List<Map<String, String>> records;
-        ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource(filePath).getFile());
-        InputStreamReader isr = new InputStreamReader(new FileInputStream(file));
+        File file = new File(getClass().getClassLoader().getResource(filePath).getFile());
 
-        try (BufferedReader br = new BufferedReader(isr)) {
-            String[] headers = Arrays.stream(br.readLine().split(",")).map(String::trim).toArray(String[]::new);
+        try (FileInputStream fis = new FileInputStream(file);
+             InputStreamReader isr = new InputStreamReader(fis, Charset.defaultCharset());
+             BufferedReader br = new BufferedReader(isr)) {
 
+            String line = br.readLine();
+            String[] headers = Arrays.stream(line.split(",")).map(String::trim).toArray(String[]::new);
             records = br.lines()
                     .map(s -> s.split(","))
                     .map(t -> IntStream.range(0, t.length)
                             .boxed()
                             .collect(toMap(i -> headers[i], i -> t[i].trim())))
                     .collect(toList());
+
+        } catch (NullPointerException e) {
+            throw new NullPointerException("File is empty");
         }
+
         return records;
     }
 }

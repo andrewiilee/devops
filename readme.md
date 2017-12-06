@@ -1,16 +1,18 @@
-DevOps repo
+DevOps
 -----------
-
-The purpose of this repo is to demonstrate devops tools
+The purpose of this repo is to demonstrate DevOps philosophy, practices, and tools
 
 #####acceptance-criteria
 Part of continuous integration & release automation
 - [ X ] create acceptance test
 - [ X ] pass acceptance test
-- [ X ] achieve behavior driven design
+- [ X ] achieve behavioral driven design
 
-#####spring-boot
-Part of continuous integration & release automation
+#####spring-boot & spring-boot advance
+Part of loosely couple architecture and fast deployments
+
+#####mapped-diagnostic-context
+Part of a unified logging system
 
 #####TODO
 - [ X ] Create spring-boot rest service
@@ -23,6 +25,16 @@ Part of continuous integration & release automation
 - [ . ] Demo swarm loadbalancing
 - [ . ] Install rancher and monitor the swarm
 
-DevOps Topics
+DevOps Practices
 --------------------------------
-ChatOps
+
+#####Unified Logging System
+
+#####Loosely couple architecture
+Minimize dependency for the purpose of faster deployments
+- Microservices
+- Cloud based
+- Visualization
+
+#####Flow
+- ChatOps

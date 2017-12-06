@@ -15,11 +15,11 @@ public class Book {
     public Book(String title, String author, Date published) {
         this.title = title;
         this.author = author;
-        this.published = published;
+        this.published = new Date(published.getTime());
     }
 
     public Date getPublished() {
-        return published;
+        return new Date(published.getTime());
     }
 
     public String getAuthor() {

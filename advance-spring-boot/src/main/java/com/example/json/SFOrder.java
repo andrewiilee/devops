@@ -18,6 +18,7 @@ public class SFOrder {
     private int fileCount;
     private List<SFFile> sfFileList;
 
+    public SFOrder() {}
     public SFOrder(String id,
                    Date created,
                    Date modified,

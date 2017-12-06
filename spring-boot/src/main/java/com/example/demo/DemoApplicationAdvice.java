@@ -15,13 +15,13 @@ public class DemoApplicationAdvice {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
     public String notFoundException(FileNotFoundException e) {
-        return "Advice: not found";
+        return "Advice: File not found";
     }
 
     @ExceptionHandler(IOException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public String exception(IOException e) {
-        return "Advice IO issues";
+        return "Advice: IO issues";
     }
 }

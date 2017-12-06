@@ -13,6 +13,7 @@ public class SFFile {
     private String filePath;
     private FileState state;
 
+    public SFFile() {}
     public SFFile(String id,
                   int priority,
                   Date received,

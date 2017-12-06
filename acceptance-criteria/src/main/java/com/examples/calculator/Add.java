@@ -8,10 +8,15 @@ package com.examples.calculator;
 public class Add {
     private final int num1;
     private final int num2;
+    private int num3;
 
     public Add(int num1, int num2) {
         this.num1 = num1;
         this.num2 = num2;
+    }
+
+    public int getNum3() {
+        return num3;
     }
 
     public int getNum2() {
@@ -22,7 +27,7 @@ public class Add {
         return num1;
     }
 
-    public int add() {
-        return num1 + num2;
+    public void add() {
+        num3 = num1 + num2;
     }
 }

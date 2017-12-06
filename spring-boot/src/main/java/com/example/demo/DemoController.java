@@ -19,12 +19,12 @@ public class DemoController {
     }
 
     @RequestMapping("/")
-    public String Hello() {
+    public String helloSpringBoot() {
         return "Working Rest Service via Spring-boot \n";
     }
 
     @RequestMapping("/prop")
-    public String Prop() {
+    public String properties() {
         return prop;
     }
 
@@ -33,13 +33,13 @@ public class DemoController {
         throw new FileNotFoundException("example of file not found exception with advice");
     }
 
-    @RequestMapping("/test2")
-    public void test2() throws IOException {
+    @RequestMapping("/test-io")
+    public void testIO() throws IOException {
         throw new IOException("example of IO thrown in the controller without advice");
     }
 
     @RequestMapping("/component")
-    public String Component() {
+    public String component() {
         return com.getName();
     }
 }

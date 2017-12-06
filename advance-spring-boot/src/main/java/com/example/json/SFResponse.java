@@ -13,10 +13,7 @@ public class SFResponse {
     public SFResponse(List<SFOrder> orders) {
         count = orders.size();
         ids = new ArrayList<>();
-
-        for (SFOrder order : orders) {
-            ids.add(order.getId());
-        }
+        orders.forEach(p -> ids.add(p.getId()));
     }
 
     public int getCount() {
