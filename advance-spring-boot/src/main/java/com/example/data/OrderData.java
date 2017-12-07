@@ -28,6 +28,7 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,7 @@ public final class OrderData {
             logger.error("Date value in the csv file does not match {}. Check date for accuracy", datePattern);
         }
     }
+
     synchronized public List<SFOrder> getOrders() {
         return orders;
     }
@@ -89,10 +91,9 @@ public final class OrderData {
         Path filePath = Paths.get(path);
         List<String> files = new ArrayList<>();
 
-        try {
-            files = Files.walk(filePath)
-                    .filter(Files::isRegularFile)
-                    .map(Path::toString)
+        try (Stream<Path> s = Files.walk(filePath)
+                .filter(Files::isRegularFile)) {
+            files = s.map(Path::toString)
                     .sorted()
                     .collect(Collectors.toList());
         } catch (IOException e) {
