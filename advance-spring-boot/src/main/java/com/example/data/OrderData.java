@@ -45,18 +45,19 @@ public final class OrderData {
 
     @Autowired
     public OrderData(@Value("${csv.file.location}") String csvLocation) {
-        if(orders == null) {
-            logger.info("CSV Location = {}", csvLocation);
-            try {
-                orders = populateOrder(csvLocation);
-            } catch (IOException e) {
-                logger.error("Cannot find or process csv file = {}. Check file location and data accuracy", csvLocation);
-            } catch (ParseException e) {
-                logger.error("Date value in the csv file does not match {}. Check date for accuracy", datePattern);
-            }
-        }
+        getCsv(csvLocation);
     }
 
+    synchronized public void getCsv(String csvLocation) {
+        logger.info("CSV Location = {}", csvLocation);
+        try {
+            orders = populateOrder(csvLocation);
+        } catch (IOException e) {
+            logger.error("Cannot find or process csv file = {}. Check file location and data accuracy", csvLocation);
+        } catch (ParseException e) {
+            logger.error("Date value in the csv file does not match {}. Check date for accuracy", datePattern);
+        }
+    }
     synchronized public List<SFOrder> getOrders() {
         return orders;
     }

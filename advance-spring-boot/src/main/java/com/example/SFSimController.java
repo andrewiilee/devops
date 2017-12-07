@@ -27,6 +27,7 @@ public class SFSimController {
     @RequestMapping(value = "/reset", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<SFOrder> resetAll() {
         logger.debug("all reset call initiated");
+
         data.getOrders()
                 .stream()
                 .peek(p -> p.setState(OrderState.READY))
