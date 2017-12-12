@@ -59,7 +59,7 @@ public class CsvTest {
     }
 
     @Test
-    public void relativeAndDonessTest() {
+    public void relativePathTest() {
         assertThat("file must be relative path", data.getOrders().get(3).getSFFileList().get(3).getFilePath(),
                 equalTo("src/test/resources/scan_me/order2/level_one/level_two/fileScan24.txt"));
         assertThat("file must be DONE", data.getOrders().get(3).getSFFileList().get(3).getState(),
