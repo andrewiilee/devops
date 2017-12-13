@@ -15,6 +15,7 @@ Part of loosely couple architecture and fast deployments
 Part of a unified logging system
 
 #####TODO
+- [ . ] Use Gradle
 - [ X ] Create spring-boot rest service
 - [ X ] Create docker image
 - [ X ] Maven create docker image

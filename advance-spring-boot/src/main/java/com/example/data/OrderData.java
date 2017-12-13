@@ -34,6 +34,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ResourceUtils;
 
 //TODO java doc
 @Component
@@ -59,7 +60,8 @@ public final class OrderData {
             logger.error("Date value in the csv file does not match {}. Check date for accuracy", datePattern);
         }
     }
-
+    //violation of data hiding, object should return the least amount of information and be responsible
+    //for implementing query results and not ask caller to do it themselves
     synchronized public List<SFOrder> getOrders() {
         return orders;
     }
@@ -120,7 +122,7 @@ public final class OrderData {
 
     private List<Map<String, String>> getListMapFromCSV(final String filePath) throws IOException {
         List<Map<String, String>> records;
-        File file = new File(getClass().getClassLoader().getResource(filePath).getFile());
+        File file = ResourceUtils.getFile("classpath:order.csv");
 
         try (FileInputStream fis = new FileInputStream(file);
              InputStreamReader isr = new InputStreamReader(fis, Charset.defaultCharset());
