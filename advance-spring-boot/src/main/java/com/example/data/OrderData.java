@@ -23,7 +23,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
@@ -33,11 +32,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
-//TODO java doc
-@Component
+@Repository
 public final class OrderData {
 
     private static final Logger logger = LoggerFactory.getLogger(OrderData.class);
@@ -50,7 +48,7 @@ public final class OrderData {
         getCsv(csvLocation);
     }
 
-    synchronized public void getCsv(String csvLocation) {
+    public void getCsv(String csvLocation) {
         logger.info("CSV Location = {}", csvLocation);
         try {
             orders = populateOrder(csvLocation);
@@ -60,15 +58,14 @@ public final class OrderData {
             logger.error("Date value in the csv file does not match {}. Check date for accuracy", datePattern);
         }
     }
-    //violation of data hiding, object should return the least amount of information and be responsible
-    //for implementing query results and not ask caller to do it themselves
-    synchronized public List<SFOrder> getOrders() {
+
+    public List<SFOrder> getOrders() {
         return orders;
     }
 
     private List<SFOrder> populateOrder(String csvLocation) throws IOException, ParseException {
         List<Map<String, String>> csv = getListMapFromCSV(csvLocation);
-        List<SFOrder> orderList = new CopyOnWriteArrayList<>();
+        List<SFOrder> orderList = new ArrayList<>();
 
         for (Map<String, String> map : csv) {
             logger.debug("Loading order id = {}", map.get("id"));

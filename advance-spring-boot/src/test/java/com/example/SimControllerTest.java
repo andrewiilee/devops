@@ -1,10 +1,8 @@
 package com.example;
 
-import com.example.data.OrderData;
 import java.util.Arrays;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.stringContainsInOrder;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,15 +30,7 @@ public class SimControllerTest {
     }
 
     @Autowired
-    private OrderData data;
-
-    @Autowired
     private MockMvc mvc;
-
-    @Before
-    public void beforeTest() {
-        data.getCsv("order.csv");
-    }
 
     @Test
     public void resetOneTest() throws Exception {
@@ -59,7 +49,7 @@ public class SimControllerTest {
 
         mvc.perform(MockMvcRequestBuilders.get("/?state=DONE").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().string(stringContainsInOrder(Arrays.asList("order4", "order1", "order2"))));
+                .andExpect(content().string(stringContainsInOrder(Arrays.asList("order3", "order4", "order1"))));
 
         mvc.perform(MockMvcRequestBuilders.get("/reset").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

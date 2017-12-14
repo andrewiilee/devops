@@ -1,8 +1,6 @@
 package com.example;
 
-import com.example.data.OrderData;
-import com.example.enumeration.FileState;
-import com.example.enumeration.OrderState;
+import com.example.data.OrderService;
 import com.example.json.SFOrder;
 import java.util.List;
 import org.slf4j.Logger;
@@ -17,41 +15,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SFSimController {
     private static final Logger logger = LoggerFactory.getLogger(SFSimController.class);
-    private OrderData data;
+    private OrderService service;
 
     @Autowired
-    private SFSimController(OrderData data) {
-        this.data = data;
+    private SFSimController(OrderService service) {
+        this.service = service;
     }
 
     @RequestMapping(value = "/reset", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<SFOrder> resetAll() {
         logger.debug("all reset call initiated");
-
-        data.getOrders()
-                .stream()
-                .peek(p -> p.setState(OrderState.READY))
-                .flatMap(p -> p.getSFFileList().stream())
-                .forEach(j -> j.setState(FileState.READY));
-
-        return data.getOrders();
+        return service.updateAllToReady();
     }
 
     @RequestMapping(value = "/reset/{order_id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public SFOrder resetOne(@PathVariable("order_id") String orderId) {
         logger.debug("reset call initiated on orderId = {}", orderId);
-
-        data.getOrders()
-                .stream()
-                .filter(p -> p.getId().equals(orderId))
-                .peek(p -> p.setState(OrderState.READY))
-                .flatMap(p -> p.getSFFileList().stream())
-                .forEach(j -> j.setState(FileState.READY));
-
-        return data.getOrders()
-                .stream()
-                .filter(p -> p.getId().equals(orderId))
-                .findFirst()
-                .orElse(null);
+        return service.updateOneToReady(orderId);
     }
 }

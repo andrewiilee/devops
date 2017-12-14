@@ -1,6 +1,6 @@
 package com.example;
 
-import com.example.data.OrderData;
+import com.example.data.OrderService;
 import com.example.enumeration.FileState;
 import com.example.enumeration.OrderState;
 import com.example.json.SFFile;
@@ -31,7 +31,7 @@ public class RestControllerTest {
     static class ContextConfiguration {}
 
     @Autowired
-    private OrderData data;
+    private OrderService service;
 
     @Autowired
     private MockMvc mvc;
@@ -70,12 +70,7 @@ public class RestControllerTest {
 
     @Test
     public void querySingleFileTest() throws Exception {
-        SFFile file = data.getOrders()
-                .stream()
-                .filter(p -> p.getId().equals("order4"))
-                .flatMap(p -> p.getSFFileList().stream())
-                .findAny()
-                .orElse(null);
+        SFFile file = service.findOneOrder("order4").getSFFileList().get(0);
 
         assert file != null;
         mvc.perform(MockMvcRequestBuilders.get("/order4/file/" + file.getId()).accept(MediaType.APPLICATION_JSON))
@@ -85,12 +80,7 @@ public class RestControllerTest {
 
     @Test
     public void updateSingleFileTest() throws Exception {
-        SFFile file = data.getOrders()
-                .stream()
-                .filter(p -> p.getId().equals("order1"))
-                .flatMap(p -> p.getSFFileList().stream())
-                .findAny()
-                .orElse(null);
+        SFFile file = service.findOneOrder("order1").getSFFileList().get(0);
 
         assert file != null;
         SFFile newFile = new SFFile();
