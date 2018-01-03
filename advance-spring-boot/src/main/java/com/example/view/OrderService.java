@@ -1,9 +1,9 @@
-package com.example.data;
+package com.example.view;
 
-import com.example.enumeration.FileState;
-import com.example.enumeration.OrderState;
-import com.example.json.SFFile;
-import com.example.json.SFOrder;
+import com.example.model.FileState;
+import com.example.model.OrderState;
+import com.example.model.SFFile;
+import com.example.model.SFOrder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

@@ -1,6 +1,5 @@
-package com.example.json;
+package com.example.model;
 
-import com.example.enumeration.OrderState;
 import java.util.Date;
 import java.util.List;
 

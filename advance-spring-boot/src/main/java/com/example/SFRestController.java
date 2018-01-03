@@ -1,10 +1,10 @@
 package com.example;
 
-import com.example.data.OrderService;
-import com.example.enumeration.OrderState;
-import com.example.json.SFFile;
-import com.example.json.SFOrder;
-import com.example.json.SFResponse;
+import com.example.view.OrderService;
+import com.example.model.OrderState;
+import com.example.model.SFFile;
+import com.example.model.SFOrder;
+import com.example.model.SFResponse;
 import java.util.Arrays;
 import java.util.Optional;
 import org.slf4j.Logger;

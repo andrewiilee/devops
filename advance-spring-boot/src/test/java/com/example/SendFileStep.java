@@ -1,9 +1,8 @@
 package com.example;
 
-import com.example.enumeration.OrderState;
-import com.example.json.SFOrder;
+import com.example.model.OrderState;
+import com.example.model.SFOrder;
 import cucumber.api.DataTable;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;

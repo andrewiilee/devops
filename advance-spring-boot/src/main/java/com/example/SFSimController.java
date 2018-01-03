@@ -1,7 +1,7 @@
 package com.example;
 
-import com.example.data.OrderService;
-import com.example.json.SFOrder;
+import com.example.view.OrderService;
+import com.example.model.SFOrder;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,9 +1,10 @@
-package com.example.data;
+package com.example.view;
 
-import com.example.enumeration.FileState;
-import com.example.enumeration.OrderState;
-import com.example.json.SFFile;
-import com.example.json.SFOrder;
+import com.example.model.FileState;
+import com.example.model.OrderState;
+import com.example.model.SFFile;
+import com.example.model.SFOrder;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,8 +25,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
-import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toMap;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import org.slf4j.Logger;
@@ -34,6 +33,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
+
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toMap;
 
 @Repository
 public final class OrderData {

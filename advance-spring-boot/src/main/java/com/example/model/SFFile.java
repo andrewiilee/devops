@@ -1,6 +1,5 @@
-package com.example.json;
+package com.example.model;
 
-import com.example.enumeration.FileState;
 import java.util.Date;
 
 /**
