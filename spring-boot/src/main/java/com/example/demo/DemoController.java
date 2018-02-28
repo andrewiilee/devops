@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -21,6 +22,11 @@ public class DemoController {
     @RequestMapping("/")
     public String helloSpringBoot() {
         return "Working Rest Service via Spring-boot \n";
+    }
+
+    @RequestMapping(value = "/post", method = RequestMethod.POST)
+    public String postSpringBoot() {
+        return "Successfully post to spring boot";
     }
 
     @RequestMapping("/prop")
