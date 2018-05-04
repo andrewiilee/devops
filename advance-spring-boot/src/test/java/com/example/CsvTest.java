@@ -1,14 +1,9 @@
 package com.example;
 
-import com.example.service.OrderService;
 import com.example.model.FileState;
 import com.example.model.OrderState;
 import com.example.model.SFOrder;
-import java.util.List;
-import java.util.Optional;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.core.IsEqual.equalTo;
+import com.example.service.OrderService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +13,14 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
+
+import java.io.File;
+import java.util.List;
+import java.util.Optional;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.core.IsEqual.equalTo;
 
 /**
  * Just spring test
@@ -33,6 +36,10 @@ public class CsvTest {
 
     @Autowired
     private OrderService service;
+
+    private String folderOrder = String.format("src%1$stest%1$sresources%1$sscan_me%1$sorder2%1$s", File.separator);
+    private String folderLevelOne = folderOrder + String.format("level_one%s", File.separator);
+    private String folderLevelTwo = folderLevelOne + String.format("level_two%s", File.separator);
 
     @Test
     public void csvFileTest() {
@@ -56,20 +63,20 @@ public class CsvTest {
     public void filesDataTest() {
         SFOrder order = service.findOneOrder("order2");
         assertThat("fileId does not match", order.getSFFileList().get(0).getFilePath(),
-                equalTo("src/test/resources/scan_me/order2/fileScan21.txt"));
+                equalTo(folderOrder + "fileScan21.txt"));
         assertThat("fileId does not match", order.getSFFileList().get(1).getFilePath(),
-                equalTo("src/test/resources/scan_me/order2/fileScan22.txt"));
+                equalTo(folderOrder + "fileScan22.txt"));
         assertThat("fileId does not match", order.getSFFileList().get(2).getFilePath(),
-                equalTo("src/test/resources/scan_me/order2/level_one/fileScan23.txt"));
+                equalTo(folderLevelOne + "fileScan23.txt"));
         assertThat("fileId does not match", order.getSFFileList().get(3).getFilePath(),
-                equalTo("src/test/resources/scan_me/order2/level_one/level_two/fileScan24.txt"));
+                equalTo(folderLevelTwo + "fileScan24.txt"));
     }
 
     @Test
     public void relativePathTest() {
         SFOrder order = service.findOneOrder("order2");
         assertThat("file must be relative path", order.getSFFileList().get(3).getFilePath(),
-                equalTo("src/test/resources/scan_me/order2/level_one/level_two/fileScan24.txt"));
+                equalTo(folderLevelTwo + "fileScan24.txt"));
         assertThat("file must be DONE", order.getSFFileList().get(3).getState(),
                 equalTo(FileState.valueOf("DONE")));
     }
