@@ -29,17 +29,12 @@ public class DemoController {
         return "Successfully post to spring boot";
     }
 
-    @RequestMapping("/prop")
-    public String properties() {
-        return prop;
-    }
-
-    @RequestMapping("/test")
+    @RequestMapping("/file-not-found")
     public void testFile() throws FileNotFoundException {
         throw new FileNotFoundException("example of file not found exception with advice");
     }
 
-    @RequestMapping("/test-io")
+    @RequestMapping("/input-output")
     public void testIO() throws IOException {
         throw new IOException("example of IO thrown in the controller without advice");
     }

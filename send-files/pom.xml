@@ -8,7 +8,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>advance-spring-boot</artifactId>
+    <artifactId>send-files</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>

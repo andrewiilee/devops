@@ -17,7 +17,7 @@
     <modules>
         <module>acceptance-criteria</module>
         <module>spring-boot</module>
-        <module>advance-spring-boot</module>
+        <module>send-files</module>
         <module>mapped-diagnostic-context</module>
     </modules>
 
